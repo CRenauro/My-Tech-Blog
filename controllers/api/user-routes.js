@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Post, Comment } = require('../../models'); ///changed from { User }
+const { User } = require('../../models'); ///changed from { User }
 
 // URL: /api/user
 router.post('/', async (req, res) => {

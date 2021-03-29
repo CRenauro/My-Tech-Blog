@@ -1,15 +1,15 @@
 const router = require('express').Router();
-const { User, Post, Comment} = require('../../models/');  ///changed from { Comment }
+const { Comment } = require('../../models/'); 
 const withAuth = require('../../utils/auth');
 
 // URL: /api/comment
-router.post('/', withAuth, async (req, res) => {    ///////newComment causing issue?
+router.post('/', withAuth, async (req, res) => {   
   try {
-    const newComment = await Comment.create({
-      comment_text: req.body.comment_text,
-      post_id: req.body.post_id,
-      user_id: req.session.user_id
-    });
+    const newComment = await Comment.create(
+    {
+      ...req.body,                  //COMMENT BODY IN REQUEST USING SPREAD, //SET USERID TO SESSION LOGGEDIN USERID
+      user_id: req.session.user_id,
+    })
     res.json(newComment);
   } catch (err) {
     res.status(500).json(err);
@@ -18,6 +18,12 @@ router.post('/', withAuth, async (req, res) => {    ///////newComment causing is
 
 module.exports = router;
 
-//COMMENT BODY IN REQUEST USING SPREAD
 
-//SET USERID TO SESSION LOGGEDIN USERID
+
+
+
+
+// previous - didnt work
+//comment_text: req.body.comment_text,
+//post_id: req.body.post_id,
+//user_id: req.session.user_id,

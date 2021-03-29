@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Post, Comment } = require('../models/'); 
+const { Post, Comment, User } = require('../models/'); 
 
 // get all posts for homepage
 router.get('/', async (req, res) => {
@@ -16,26 +16,15 @@ router.get('/', async (req, res) => {
   }
 });
 
+
 // get single post
 router.get('/post/:id', async (req, res) => {
   try {
-    const postData = await Post.findByPk(req.params.id, {  //YOUR CODE HERE
-          attributes: [
-            'id',
-            'title',
-            'content',
-            'created_at',
-          ],
-          include: [{
-            model: Comment,
-            attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created-at'],
-            include: {
-              model:User,
-              attributes: ['username']
-            },
-          }]
-        
-    })
+    const postData = await Post.findByPk(req.params.id);
+    if(!postData) {
+      res.status(404).json({message: 'No good!'});  // YOUR CODE HERE
+      return;
+    }
 
     if (postData) {
       const post = postData.get({ plain: true });

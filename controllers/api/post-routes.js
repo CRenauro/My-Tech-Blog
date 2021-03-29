@@ -1,15 +1,14 @@
 const router = require('express').Router();
-const { User, Post, Comment } = require('../../models/');   ///changed from { Post }
+const { Post } = require('../../models/'); 
 const withAuth = require('../../utils/auth');
 
 router.post('/', withAuth, async (req, res) => {
   const body = req.body;
 
   try {
-    const newPost = await Post.create({        // POST BODY SENT IN REQUEST. HINT USING SPREAD
-      title: req.body.title,                         // SET USERID TO LOGGEDIN USERID
-      content: req.body.post_content,
-      user_id: req.session.user_id
+    const newPost = await Post.create({  
+      ...req.body,
+      user_id: req.session.user_id,      // POST BODY SENT IN REQUEST. HINT USING SPREAD // SET USERID TO LOGGEDIN USERID
     });
     res.json(newPost);
   } catch (err) {
@@ -22,9 +21,10 @@ router.put('/:id', withAuth, async (req, res) => {
     const [affectedRows] = await Post.update(req.body, {  //SET ID TO ID PARAMETER INSIDE WHERE CLAUSE CONDITION FIELD
       where: {
         id: req.params.id,
+        title: req.body.title,
+        content: req.body.post_content
       },
-      title: req.body.title,
-      content: req.body.post_content
+
       
     });
 
@@ -58,4 +58,3 @@ router.delete('/:id', withAuth, async (req, res) => { //SET ID TO ID PARAMETER I
 });
 
 module.exports = router;
-

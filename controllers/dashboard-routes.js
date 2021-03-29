@@ -1,27 +1,16 @@
 const router = require('express').Router();
-const { User, Post, Comment } = require('../models/'); ///changed from { Post }
+const { Post } = require('../models/');
 const withAuth = require('../utils/auth');
 
 router.get('/', withAuth, async (req, res) => {
   try {
-    const postData = await Post.findAll({
-      where: {
-        user_id: req.session.user_id       //SET USERID TO THE LOGGED-IN USER ID
-      },
-      attributes: [
-        'id',
-        'title',
-        'content',
-        'created_at'
+    const postData = await Post.findAll({  // SET USERID TO THE LOGGED-IN USER ID
+      where: [
+        {
+        model: User,
+        attributes: ['name'],
+        },
       ],
-      include: [{
-        model: Comment,
-        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-        include: {
-          model:User,
-          attributes: ['username']
-        }
-      }],
     });
 
     const posts = postData.map((post) => post.get({ plain: true }));
