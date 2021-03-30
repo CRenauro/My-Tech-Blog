@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
     })
 
     req.session.save(() => {
-      req.session.user_id = newUser.id; //SET USERID IN REQUEST SESSION TO ID RETURNED FROM DATABASE
+      req.session.user_Id = newUser.id; //SET USERID IN REQUEST SESSION TO ID RETURNED FROM DATABASE
       req.session.username = newUser.username; //SET USERNAME IN REQUEST SESSION TO USERNAME RETURNED FROM DATABASE
       req.session.loggedIn = true; //SET LOGGEDIN TO TRUE IN REQUEST SESSION
       res.json(newUser);
@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.save(() => {
-      req.session.user_id = user.id; //SET USERID IN REQUEST SESSION TO ID RETURNED FROM DATABASE
+      req.session.user_Id = user.id; //SET USERID IN REQUEST SESSION TO ID RETURNED FROM DATABASE
       req.session.username = user.username; //SET USERNAME IN REQUEST SESSION TO USERNAME RETURNED FROM DATABASE
       req.session.loggedIn = true; //SET LOGGEDIN TO TRUE IN REQUEST SESSION
 

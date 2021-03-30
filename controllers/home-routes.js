@@ -18,6 +18,7 @@ router.get('/', async (req, res) => {
 
 
 // get single post
+//url: localhost:3001/post/2
 router.get('/post/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id);
