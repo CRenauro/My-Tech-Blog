@@ -21,12 +21,24 @@ router.get('/', async (req, res) => {
 //url: localhost:3001/post/2
 router.get('/post/:id', async (req, res) => {
   try {
-    const postData = await Post.findByPk(req.params.id);
-    if(!postData) {
-      res.status(404).json({message: 'No good!'});  // YOUR CODE HERE
-      return;
-    }
-
+    const postData = await Post.findByPk(req.params.id, {
+      attributes: [ "id" ],
+      include: [
+        {
+          model: Comment,
+          attributes: [ "id", "body", "postId", "userId"],
+          include: {
+            model: User,
+            attributes: ["username"],
+          },
+        },
+        {
+          model: User,
+          attributes: ["username"],
+        },
+      ],
+    });
+    
     if (postData) {
       const post = postData.get({ plain: true });
 
