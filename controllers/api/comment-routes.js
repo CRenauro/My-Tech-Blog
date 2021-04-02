@@ -16,6 +16,20 @@ router.post('/', withAuth, async (req, res) => {
   }
 });
 
+router.get('/', async (req, res) => {
+  try {
+    const commentData = await Comment.findAll({
+      include: [User],
+    });
+
+    const comments = commentData.map((post) => post.get({ plain: true }));
+
+    res.render('all-posts', { comments });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // if someone sends an HTTP PUT request to localhost:3001/api/comment/(insert number here)
 router.put('/:id', (req, res) => {
   Comment.update(req.body, {
@@ -37,5 +51,24 @@ router.put('/:id', (req, res) => {
 
 });
 
+router.delete('/:id', (req, res) => {
+  Comment.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+      .then(commentData => {
+        if (!commentData) {
+          res.status(404).json({ message: 'No comment found with this id!' });
+          return;
+        }
+    
+        res.json(commentData);
+      })
+       .catch (err => {
+        res.status(500).json(err);
+      });
+
+});
 module.exports = router;
 
