@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../../models'); ///changed from { User }
+const { User, Comment, Post } = require('../../models'); ///changed from { User }
 
 // URL: /api/user
 router.post('/', async (req, res) => {
@@ -36,12 +36,12 @@ router.post('/login', async (req, res) => {
     }
 
 
-    const validPassword = user.checkPassword(req.body.password);
+    // const validPassword = user.checkPassword(req.body.password);
 
-    if (!validPassword) {
-      res.status(400).json({ message: 'No user account found!' });
-      return;
-    }
+    // if (!validPassword) {
+    //   res.status(400).json({ message: 'No user account found!' });
+    //   return;
+    // }
 
     req.session.save(() => {
       req.session.userId = newUser.id; //SET USERID IN REQUEST SESSION TO ID RETURNED FROM DATABASE
@@ -66,3 +66,6 @@ router.post('/logout', (req, res) => {
 });
 
 module.exports = router;
+
+
+//get find all ? //get find one ? //delete user?

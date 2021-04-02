@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post } = require('../../models/'); 
+const { Post, User } = require('../../models/'); 
 const withAuth = require('../../utils/auth');
 
 router.post('/', withAuth, async (req, res) => {
@@ -21,8 +21,9 @@ router.put('/:id', withAuth, async (req, res) => {
     const [affectedRows] = await Post.update(req.body, {  //SET ID TO ID PARAMETER INSIDE WHERE CLAUSE CONDITION FIELD
       where: {
         id: req.params.id,
-        title: req.body.title,
-        content: req.body.post_content
+        userId: req.session.userId
+        // title: req.body.title,
+        // content: req.body.post_content
       },
 
       
