@@ -22,26 +22,37 @@ router.get('/', async (req, res) => {
 router.get('/post/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
-      attributes: [ "id" ],
       include: [
+        {model: User,
+        attributes: ["username"]}, /*Comment*/
         {
           model: Comment,
-          attributes: [ "id", "body", "postId", "userId"],
-          include: {
+          include: [ {
             model: User,
-            attributes: ["username"],
-          },
-        },
-        {
-          model: User,
-          attributes: ["username"],
-        },
+            attributes: ["username"]
+          } ]
+        }
+
+        //{
+        //   model: Comment,
+        //   // attributes: [ "id", "body", "postId", "userId"],
+        //   include: {
+        //     model: User,
+        //     attributes: ["username"],
+        //   },
+        // },
+        // {
+        //   model: User,
+        //   attributes: ["username"],
+        //},
       ],
     });
     
     if (postData) {
       const post = postData.get({ plain: true });
-
+      console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+      console.log(`Here's the post!: ${post}`);
+      console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
       res.render('single-post', { post });
     } else {
       res.status(404).end();
