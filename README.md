@@ -1,10 +1,26 @@
-# My-Tech-Blog
+<h1 align="center">My Tech Blog</h1>
 
-![screenshot_1](https://user-images.githubusercontent.com/71401585/113462957-6a044c00-93f1-11eb-9576-d0edf6925fae.png)
+### 🏠 https://my-tech-blog-cr.herokuapp.com/
 
-![screenshot_3](https://user-images.githubusercontent.com/71401585/113462958-6cff3c80-93f1-11eb-82ed-a7495cb7761f.png)
+<br/>
+<br/>
+
+# Install
+
+Open the above link in your browser.
+<br/>
+<br/>
+
+# Usage
+
+![screenshot_1.png](./public/images/screenshot_1.png)
+![screenshot_3.png](./public/images/screenshot_3.png)
+
+This is a blog site similar to Wordpress. A person can sign up, create posts and leave comments.
+
+<br/>
+<br/>
 
 # Description
 
-This is a blog site similar to Wordpress.
-This was created with Handlebars, mySQL, Sequelize, and Express Session NPM for authenication.
+This app uses the Model-View-Controller architecture and it was created with Handlebars, mySQL, Sequelize, and Express Session NPM for authenication.
