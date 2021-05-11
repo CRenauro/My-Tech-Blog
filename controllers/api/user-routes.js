@@ -36,13 +36,6 @@ router.post('/login', async (req, res) => {
     }
 
 
-    // const validPassword = user.checkPassword(req.body.password);
-
-    // if (!validPassword) {
-    //   res.status(400).json({ message: 'No user account found!' });
-    //   return;
-    // }
-
     req.session.save(() => {
       req.session.userId = newUser.id; //SET USERID IN REQUEST SESSION TO ID RETURNED FROM DATABASE
       req.session.username = newUser.username; //SET USERNAME IN REQUEST SESSION TO USERNAME RETURNED FROM DATABASE
@@ -129,6 +122,3 @@ router.delete('/:id', (req, res) => {
 });
 
 module.exports = router;
-
-
-//get find all ? //get find one ? //delete user?
