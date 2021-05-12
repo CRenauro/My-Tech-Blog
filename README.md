@@ -1,4 +1,4 @@
-<h1 align="center">My Tech Blog</h1>
+<h1 align="center">My Tech Blog 💻 </h1>
 
 ### 🏠 https://my-tech-blog-cr.herokuapp.com/
 
